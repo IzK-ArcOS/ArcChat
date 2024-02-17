@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="../../../main.css">
+    <link rel="stylesheet" href="dashStyling.css">
+    <script src="dashScript.js" type="module"></script>
+    <title id="title">ArcChat - Login</title>
+</head>
+<body>
+    <div id="welcomeScreen">
+        <h1>Welcome to ArcChat!</h1>
+        <p>Please login with the provided credentials.</p>
+        <input type="text" id="username">
+        <input type="password" id="password">
+        <button id="loginButton">Login</button>
+    </div>
+    <div id="loggedInDash" style="display: none;">
+        <div style="display: flex; justify-content: center; align-items: center; width: 100%; flex-direction: column;" id="welcomeMessage">
+            <p>Welcome to ArcChat!</p>
+            <p><button id="genDiscChat">General Discussion</button></p>
+            <p><button id="fdtDiscChat" disabled="true">FD Discussion</button></p>
+            <p><button id="bdtDiscChat" disabled="true">BD Discussion</button></p>
+            <p><button id="ssmDiscChat" disabled="true">SSM Discussion</button></p>
+            <p><button id="dtDiscChat" disabled="true">Designing Discussion</button></p>
+        </div>
+        <p style="position: absolute; bottom: 0px; justify-self: left; left:1%">BETA</p>
+    </div>
+    <div id="chatWindow" style="position: absolute; display: none;" chatSel="none">
+        <div id="chatList">
+            <h3> ArcOS Chats </h3>
+            <button id="chat1" class="chatButton">General</button>
+        </div>
+        <div id="chattingBox">
+        </div>
+        <div id="userStuff">
+            <div class="username" id="usernameDisplay"> <h3>Logan</h3> </div>
+            <div class="optionsButtonContainer"> <button id="optionsButton"> ⚙️ </button></div>
+        </div>
+        <div id="chatBoxElement">
+            <input id="chatBox">
+            <button id="sendChat">Send</button>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,140 @@
+#welcomeScreen {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction:column;
+    gap: 10px;
+}
+
+#welcomeScreen button {
+    width: 10%;
+}
+#loggedInDash {
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+#chatWindow {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#chatWindow #chattingBox {
+    right: 0px;
+    width: 79%;
+    position: absolute;
+    flex-direction: column;
+    gap: 10px;
+    top: 0px;
+    display: flex;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+#chatWindow #chatList {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    left: 0px;
+    width: 20%;
+    position: absolute;
+    height: 90%;
+}
+
+#chatWindow #chatList .chatButton {
+    width:100%;
+    border-radius: 0px;
+    height:fit-content;
+}
+
+#chatWindow #userStuff {
+    left: 0px;
+    width: 20%;
+    position: absolute;
+    height: 9%;
+    bottom: 0px;
+    display: flex;
+    align-items: center;
+}
+
+#chatWindow #userStuff h3 {
+    margin-left: 10px;
+}
+
+#chatWindow #userStuff .optionsButtonContainer {
+    position: absolute;
+    right:10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+#chatWindow #chatBoxElement {
+    left: 21%;
+    width: 79%;
+    position: absolute;
+    height: 9%;
+    bottom: 0px;
+}
+
+#chatWindow div {
+    background-color: #202020;
+}
+
+
+#chatWindow #chattingBox .foreignchatbox {
+    background-color: #505050;
+    left: 2%;
+    margin-right: auto;
+}
+ 
+#chatWindow #chattingBox .userchatbox {
+    background-color: #0000cc;
+    right: 2%;
+    margin-left: auto;
+    align-self: flex-end;
+    color: #fff; 
+}
+
+#chatWindow #chattingBox div {
+    margin-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 7px;
+    padding-left: 15px;
+    padding-top: 7px;
+    width: fit-content;
+    border-radius: 10px;
+    position: relative;
+    text-wrap: 20;
+    max-width: 70%;
+    overflow-wrap: break-word;
+    color: white;
+}
+
+#chatWindow #chattingBox div::before,
+#chatWindow #chattingBox div::after {
+    bottom: -0.1rem;
+    content: "";
+    height: 1rem;
+    position: absolute;
+}
+
+#chatWindow #chattingBox .userchatbox::before {
+    border-bottom-left-radius: 0.8rem 0.7rem;
+    border-right: 1rem solid #0000cc;
+    right: -0.35rem;
+    transform: translate(0, -0.1rem);
+}
+
+#chatWindow #chattingBox .userchatbox::after {
+    background-color: #202020;
+    border-bottom-left-radius: 0.5rem;
+    right: -40px;
+    transform:translate(-30px, -2px);
+    width: 10px;
+}

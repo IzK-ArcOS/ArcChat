@@ -1,0 +1,18 @@
+{
+  "name": "ArcChatApp",
+  "version": "1.0.0",
+  "description": "A chat app for the ArcOS Team.",
+  "main": "index.js",
+  "repository": "https://github.com/An-Unnamed-Developer/ArcChatApp/",
+  "author": "AUD",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.2.2"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "dompurify": "^3.0.8"
+  }
+}
