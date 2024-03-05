@@ -1,18 +1,31 @@
 {
-  "name": "ArcChatApp",
-  "version": "1.0.0",
+  "name": "arcchatapp",
+  "version": "0.2.0",
   "description": "A chat app for the ArcOS Team.",
   "main": "index.js",
   "repository": "https://github.com/An-Unnamed-Developer/ArcChatApp/",
-  "author": "AUD",
+  "author": "An-Unnamed-Developer / Logan Cookson",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^28.2.2"
+    "@electron-forge/cli": "^7.3.0",
+    "electron": "^29.0.1",
+    "electron-builder": "^24.12.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-forge package",
+    "package-all": "electron-forge package --darwin --win --linux",
+    "make": "electron-forge make",
+    "dist":"electron-builder -m && electron-builder -wl --x64",
+    "pack":"electron-builder --dir -mwl"
   },
   "dependencies": {
     "dompurify": "^3.0.8"
+  },
+  "build": {
+    "appId": "logancookson.electronApps.ArcChatApp",
+    "mac": {
+      "category": "public.app-category.social-networking"
+    }
   }
 }

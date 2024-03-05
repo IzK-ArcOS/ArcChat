@@ -2,10 +2,10 @@
     width: 100%;
     height: 100%;
     justify-content: center;
-    position: absolute;
+    position: relative;
     display: flex;
     align-items: center;
-    flex-direction:column;
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -82,6 +82,17 @@
     bottom: 0px;
 }
 
+#chatWindow #chatBoxElement #chatBox {
+    width: 80%;
+    height: max-content;
+}
+
+#chatWindow #chatBoxElement #sendChat {
+    width: 15%;
+    right: 0px;
+    position: absolute;
+}
+
 #chatWindow div {
     background-color: #202020;
 }
@@ -137,4 +148,25 @@
     right: -40px;
     transform:translate(-30px, -2px);
     width: 10px;
+}
+
+#settings {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: black;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 5%;
+}
+
+#settings button {
+    height: max-content;
+    width: max-content;
+}
+
+#settings #closeSettings {
+    position: absolute;
+    top: 2%;
+    right: 2%;
 }

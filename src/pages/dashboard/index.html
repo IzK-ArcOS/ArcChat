@@ -5,7 +5,7 @@
     <script src="dashScript.js" type="module"></script>
     <title id="title">ArcChat - Login</title>
 </head>
-<body>
+<body style="display: flex;">
     <div id="welcomeScreen">
         <h1>Welcome to ArcChat!</h1>
         <p>Please login with the provided credentials.</p>
@@ -22,22 +22,50 @@
             <p><button id="ssmDiscChat" disabled="true">SSM Discussion</button></p>
             <p><button id="dtDiscChat" disabled="true">Designing Discussion</button></p>
         </div>
-        <p style="position: absolute; bottom: 0px; justify-self: left; left:1%">BETA</p>
     </div>
     <div id="chatWindow" style="position: absolute; display: none;" chatSel="none">
         <div id="chatList">
             <h3> ArcOS Chats </h3>
             <button id="chat1" class="chatButton">General</button>
+            <button id="chat2" class="chatButton">Beta Test</button>
+            <button id="chat3" class="chatButton">More beta test</button>
         </div>
         <div id="chattingBox">
         </div>
         <div id="userStuff">
-            <div class="username" id="usernameDisplay"> <h3>Logan</h3> </div>
+            <div class="username" > <h3 id="usernameDisplay"></h3> </div>
             <div class="optionsButtonContainer"> <button id="optionsButton"> ⚙️ </button></div>
         </div>
         <div id="chatBoxElement">
             <input id="chatBox">
             <button id="sendChat">Send</button>
         </div>
+    </div>
+    <div id="settings" style="display: none;">
+        <h1>Working on it! </h1>
+        <button id="closeSettings"> X </button>
+        <div class="changeNameField"> <input id="changeNameField"> <button id="submitName"> Change Display Name </button> </div>
+        <button id="logoutButton"> Logout </button>
+    </div>
+    <div style="pointer-events: none; display: flex; align-items: normal; justify-content: center; width: 100%; height: 100%; position: absolute;">
+        <h1 id="beta" style="font-size: 20pt;-webkit-text-stroke: 1px black; -webkit-text-fill-color: white; position: absolute; stroke: #505050; stroke-width: 5px; stroke-opacity: 1;"><strong>BETA</strong></h1>
+    </div>
+
+    <div id="loginError" style="display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 9999999; width: 100%; height: 100%; position: absolute; background-color: #202020;">
+        <h1> Important. </h1>
+        <p id="errorMsg"> </p>
+        <button id="closeError"> Close </button>
+    </div>
+    <div id="newServer" style="gap: 5px; display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 9999999; width: 100%; height: 100%; position: absolute; background-color: #202020;">
+        
+        <h3> Server connection utility. </h3>
+        <input style="width: 20%;" id="ipAddress" placeholder="IP Address">
+        <div style="width: 20%;">
+            <button id="connectToExternal">Connect</button>
+            <button id="clearConnectToExternal">Clear</button>
+            <button id="cancelConnectToExternal">Cancel</button>
+        </div>
+        <div></div>
+        <small>Cancel if you don't know what you're doing!</small>
     </div>
 </body>
