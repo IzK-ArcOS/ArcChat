@@ -1,6 +1,7 @@
 {
   "name": "arcchatapp",
   "version": "0.2.0",
+  "type": "module",
   "description": "A chat app for the ArcOS Team.",
   "main": "index.js",
   "repository": "https://github.com/An-Unnamed-Developer/ArcChatApp/",
@@ -16,11 +17,13 @@
     "package": "electron-forge package",
     "package-all": "electron-forge package --darwin --win --linux",
     "make": "electron-forge make",
-    "dist":"electron-builder -m && electron-builder -wl --x64",
-    "pack":"electron-builder --dir -mwl"
+    "dist": "electron-builder -m && electron-builder -wl --x64",
+    "pack": "electron-builder --dir -mwl"
   },
   "dependencies": {
-    "dompurify": "^3.0.8"
+    "dompurify": "^3.0.8",
+    "react": "^18.2.0",
+    "react-markdown": "^9.0.1"
   },
   "build": {
     "appId": "logancookson.electronApps.ArcChatApp",

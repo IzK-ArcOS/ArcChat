@@ -1,6 +1,6 @@
-
+import ReactMarkdown from 'react-markdown';
 console.log("Working.")
-const { app, BrowserWindow } = require('electron')
+import { app, BrowserWindow } from 'electron';
 
 
 const createWindow = () => {

@@ -56,3 +56,13 @@ input {
     font-size: 14px;
     padding: 8px 15px;
 }
+
+select {
+    border: none;
+    border-radius: 6px;
+    background-color: #353535;
+    color: #cccccc;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 14px;
+    padding: 8px 15px;
+}

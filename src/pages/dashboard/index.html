@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="../../../main.css">
     <link rel="stylesheet" href="dashStyling.css">
     <script src="dashScript.js" type="module"></script>
+    <script src="settingsLogic.js" type="module"></script>
     <title id="title">ArcChat - Login</title>
 </head>
 <body style="display: flex;">
@@ -27,8 +28,8 @@
         <div id="chatList">
             <h3> ArcOS Chats </h3>
             <button id="chat1" class="chatButton">General</button>
-            <button id="chat2" class="chatButton">Beta Test</button>
-            <button id="chat3" class="chatButton">More beta test</button>
+            <button id="chat2" class="chatButton">Team General</button>
+            <button id="chat3" class="chatButton">Test Channel</button>
         </div>
         <div id="chattingBox">
         </div>
@@ -37,14 +38,28 @@
             <div class="optionsButtonContainer"> <button id="optionsButton"> ⚙️ </button></div>
         </div>
         <div id="chatBoxElement">
-            <input id="chatBox">
+            <div contenteditable name="w3review" style="resize: none; min-height: fit-content; max-height: calc(100% - 20px); overflow-y: scroll;"  rows="1" cols="50" id="chatBox"> </div>
             <button id="sendChat">Send</button>
         </div>
     </div>
-    <div id="settings" style="display: none;">
+    <div id="settings" style=" display: none; gap: 5px;">
         <h1>Working on it! </h1>
+        <hr class="seperator">
         <button id="closeSettings"> X </button>
-        <div class="changeNameField"> <input id="changeNameField"> <button id="submitName"> Change Display Name </button> </div>
+        <h3>User Settings</h3>
+        <div class="changeNameField"> <input placeholder="New display name" id="changeNameField"> <button id="submitName"> Change Display Name </button>   </div> <p id="displayNameStatus">Changed display name.</p>
+        <div class="newPasswordField"> <input placeholder="Old password" type="password" id="oldPasswordField">  <input type="password" placeholder="New password" id="newPasswordField"> <button id="submitPassword"> Change Password </button> </div> <p id="changePasswordStatus"> Changed password. </p>
+        <!--<hr class="seperator">
+        <h3> Language settings </h3>
+        <p>Currently does nothing. Coming soon. </p>
+        <select id="languageSelect">
+            <option value="english-gb">English</option>
+            <option value="english-gb">Russian (Coming soon)</option>
+            <option value="english-gb">Dutch (Coming soon)</option>
+            <option value="langtest">LangTest</option>
+        </select> <button id="applyLanguage"> Apply </button>-->
+        <hr class="seperator">
+        <h3>Danger zone</h3>
         <button id="logoutButton"> Logout </button>
     </div>
     <div style="pointer-events: none; display: flex; align-items: normal; justify-content: center; width: 100%; height: 100%; position: absolute;">
@@ -55,6 +70,7 @@
         <h1> Important. </h1>
         <p id="errorMsg"> </p>
         <button id="closeError"> Close </button>
+        <ReactMarkdown className="idfk" source='{"# i am a potato"}'></ReactMarkdown>
     </div>
     <div id="newServer" style="gap: 5px; display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 9999999; width: 100%; height: 100%; position: absolute; background-color: #202020;">
         

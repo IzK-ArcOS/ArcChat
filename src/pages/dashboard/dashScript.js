@@ -7,6 +7,8 @@ const passwordfield = document.getElementById('password')
 const usernamefield = document.getElementById('username')
 const settingsButton = document.getElementById('optionsButton')
 const chattingBox = document.getElementById('chattingBox')
+const checkWhitespace = str => !str.replace("/\s/g", '').length
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 var  url = config.url
 var customUrl= ""
 var debugMode = false
@@ -27,6 +29,11 @@ windowStatus.innerHTML = "ArcChat - Login"
 var messages = ''
 document.getElementById('beta').innerHTML = "BETA "+config.version
 
+document.addEventListener('contextmenu', function(e) {
+    alert("You've tried to open context menu"); //here you draw your own menu
+    e.preventDefault();
+  }, false);
+
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
   }  
@@ -37,33 +44,38 @@ function sendMessage() {
     http.setRequestHeader('token', token)
     http.setRequestHeader('community', 0)
     http.setRequestHeader('channel', 1)
+    http.setRequestHeader('version', config.version)
 
     // <img src='https://media1.tenor.com/m/_RZWxr9IPg8AAAAd/goose-silly.gif'></img>
     window.console.log(message)
 
 
-    var message = msgBox.value;
+    var message = msgBox.innerHTML;
     
     message = DOMPurify.sanitize(message)
+
     
-    const checkWhitespace = str => !str.replace("/\s/g", '').length
 
     const msgTime = new Date().getTime();
 
     message = message.replace(new RegExp(escapeRegExp("\\"), "g"), "<backslash>")
+
+    var message2 = message.replaceAll("<br>", "\n\n")
+
+    console.log(message2)
 
     var assembledMsg = JSON.stringify(
         {
             "username":username,
             "name": displayName,
             "time":msgTime+150,
-            "text":message
+            "text":message2
         }
     )
 
     window.console.log(assembledMsg)
 
-    msgBox.value = ""
+    msgBox.innerHTML = ""
 
     msgBox.focus()
 
@@ -96,7 +108,22 @@ passwordfield.addEventListener("keypress", function(event) {
 msgBox.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
         event.preventDefault()
-        sendButton.click();
+        msgBox.innerHTML = msgBox.innerHTML + "<br><br>"
+        var el = msgBox
+        if (typeof window.getSelection != "undefined"
+            && typeof document.createRange != "undefined") {
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            range.collapse(false);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        } else if (typeof document.body.createTextRange != "undefined") {
+            var textRange = document.body.createTextRange();
+            textRange.moveToElementText(el);
+            textRange.collapse(false);
+            textRange.select();
+        }
     }
 })
 
@@ -109,6 +136,7 @@ function updateMessages() {
     http.setRequestHeader('token', token)
     http.setRequestHeader('community', 0)
     http.setRequestHeader('channel', channel)
+    http.setRequestHeader('version', config.version)
     const prerequest = new Date()
     http.onload = (e) => {
 
@@ -118,7 +146,7 @@ function updateMessages() {
             window.console.log("AIOSJDOAIJDOIASJDOIAJDSO")
         const msgList = document.getElementById('chattingBox')
 
-    var messagesTable = http.responseText.split('\\');
+    var messagesTable = http.responseText.split('\\\\');
 
     // window.console.log(time)
 
@@ -128,7 +156,7 @@ function updateMessages() {
         // window.console.log(messagesTable)
 
         var decodedMsg;
-        try { decodedMsg = JSON.parse(messagesTable[i].replaceAll('<backslash>','\\\\')) }
+        try { decodedMsg = JSON.parse(messagesTable[i].replaceAll('<backslash>','\\')) }
         catch(err) { //window.console.log("Error: "+err+"\n Message: "+messagesTable[i]); decodedMsg = "This message couldn't be displayed. Try again later."
             }
         console.log(decodedMsg)
@@ -139,7 +167,7 @@ function updateMessages() {
         console.log(ping)
         if (Number(decodedMsg['time'] + ping > time)) {
             var newChat = document.createElement("div")
-            var message = decodedMsg["text"] //.replaceAll("\\","")
+            var message = DOMPurify.sanitize( marked.parse( decodedMsg["text"]) )//.replaceAll("\\","")
             if (decodedMsg["username"] == username) {
                 newChat.className = "userchatbox"
             } else {
@@ -148,24 +176,39 @@ function updateMessages() {
 
             msgList.appendChild(newChat)
             
+            var timeminutes = (new Date(decodedMsg["time"])).getMinutes()
+
+            if (timeminutes < 10) {
+                timeminutes = "0" + timeminutes
+            }
+
             if (decodedMsg["name"]) {
                 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
                 const monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-                var msgdate =  daysOfWeek[(new Date(decodedMsg["time"])).getDay()] +" "+ (new Date(decodedMsg["time"])).getDate() + ", " + monthsOfYear[(new Date(decodedMsg["time"])).getMonth()] + " - " +(new Date(decodedMsg["time"])).getHours()+":"+(new Date(decodedMsg["time"])).getMinutes()
-                newChat.innerHTML = "<small><strong> " + decodedMsg["name"] + " </strong> • "+msgdate+" </small><br> " + message + ""
+                var msgdate =  daysOfWeek[(new Date(decodedMsg["time"])).getDay()] +" "+ (new Date(decodedMsg["time"])).getDate() + ", " + monthsOfYear[(new Date(decodedMsg["time"])).getMonth()] + " - " +(new Date(decodedMsg["time"])).getHours()+":"+timeminutes
+                if (!document.hasFocus()) {
+                    new Notification("ArcChat - "+decodedMsg["name"] + " (" + decodedMsg["username"]+")",{body:decodedMsg["text"]})
+                }
+                newChat.innerHTML = "<small><strong user="+decodedMsg["username"]+"> " + decodedMsg["name"] + " </strong> • "+msgdate+" </small><br> " + message + ""
             } else {
                 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
                 const monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-                var msgdate =  daysOfWeek[(new Date(decodedMsg["time"])).getDay()] +" "+ (new Date(decodedMsg["time"])).getDate() + ", " + monthsOfYear[(new Date(decodedMsg["time"])).getMonth()] + " - " +(new Date(decodedMsg["time"])).getHours()+":"+(new Date(decodedMsg["time"])).getMinutes()
+                var msgdate =  daysOfWeek[(new Date(decodedMsg["time"])).getDay()] +" "+ (new Date(decodedMsg["time"])).getDate() + ", " + monthsOfYear[(new Date(decodedMsg["time"])).getMonth()] + " - " +(new Date(decodedMsg["time"])).getHours()+":"+timeminutes
+                if (!document.hasFocus()) {
+                    new Notification("ArcChat - " +decodedMsg["username"],{body:decodedMsg["text"]})
+                }
                 
-                newChat.innerHTML = "<small><strong> " + decodedMsg["username"] + " </strong> • "+msgdate+" </small><br> " + message + ""
+                newChat.innerHTML = "<small><strong user="+decodedMsg["username"]+"> " + decodedMsg["username"] + " </strong> • "+msgdate+" </small><br> " + message + ""
             }
+            
+            newChat.firstChild.firstChild.addEventListener('click', function(e) {
+                var username = decodedMsg["username"]
+                console.log("User: " + e.target.getAttribute("user"))
+            })
 
             msgList.scrollTop = msgList.scrollHeight;
 
-            if (!document.hasFocus()) {
-                new Notification("ArcChat - "+decodedMsg["name"] + " (" + decodedMsg["username"]+")",{body:decodedMsg["text"]})
-            }
+            
         }
     }
     
@@ -218,6 +261,7 @@ loginbutton.addEventListener('click', function () {
     http.open("get", url + "/login", false)
     http.setRequestHeader("user", usernamefield.value)
     http.setRequestHeader("pwd", passwordfield.value)
+    http.setRequestHeader('version', config.version)
     http.send(null)
     window.console.log(http.status)
     if (http.status != 200 || usernamefield.value.length > 20) {
@@ -319,13 +363,16 @@ logoutButton.addEventListener('click', function() {
 const changeNameButton = document.getElementById("submitName")
 
 changeNameButton.addEventListener("click", function() {
-    displayName = document.getElementById("changeNameField").value
+    var newname=document.getElementById("changeNameField").value
+    if (!checkWhitespace(newname)) {
+    displayName = newname
     changeNameButton.innerHTML = "Success!"
     setTimeout(function() {
         changeNameButton.innerHTML = "Change Display Name"
     }, 2000)
     var userBox = document.getElementById('usernameDisplay')
     userBox.innerHTML = displayName
+    }
 })
 
 setInterval(function() {

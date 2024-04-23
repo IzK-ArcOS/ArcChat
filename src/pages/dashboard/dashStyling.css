@@ -73,6 +73,9 @@
     margin-bottom: auto;
 }
 
+.seperator {
+    width: 50%; border-width:0;height: 2px;color:gray;background-color:gray
+}
 
 #chatWindow #chatBoxElement {
     left: 21%;
@@ -91,6 +94,17 @@
     width: 15%;
     right: 0px;
     position: absolute;
+    top: 0px;
+}
+
+#chatWindow #chatBoxElement #chatBox {
+    border: none;
+    border-radius: 6px;
+    background-color: #353535;
+    color: #cccccc;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 14px;
+    padding: 8px 15px;
 }
 
 #chatWindow div {
@@ -113,7 +127,7 @@
 }
 
 #chatWindow #chattingBox div {
-    margin-top: 10px;
+    margin-top: 20px;
     padding-right: 15px;
     padding-bottom: 7px;
     padding-left: 15px;
@@ -126,6 +140,11 @@
     overflow-wrap: break-word;
     color: white;
 }
+
+#chatWindow #chattingBox div * {
+    margin-bottom: auto;
+    margin-top: auto;
+} 
 
 #chatWindow #chattingBox div::before,
 #chatWindow #chattingBox div::after {
@@ -170,3 +189,5 @@
     top: 2%;
     right: 2%;
 }
+
+#settings h3 {margin-top: 0px; margin-bottom: 20px;}
