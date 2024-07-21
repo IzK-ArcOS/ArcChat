@@ -22,6 +22,6 @@ var response = testConnection(url)
 
 if (response) {
     status.innerHTML = "Connection successful, loading app..."
-    window.location.href = "./src/pages/dashboard/index.html"
+    setTimeout(function(){window.location.href = "./src/pages/dashboard/index.html"},1000)
 }
 }

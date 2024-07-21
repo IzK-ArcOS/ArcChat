@@ -11,6 +11,7 @@ const checkWhitespace = str => !str.replace("/\s/g", '').length
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 var  url = config.url
 var customUrl= ""
+var ping = 0;
 var debugMode = false
 import * as config from "../../config.js"
 const DOMPurify = require('dompurify')
@@ -68,7 +69,7 @@ function sendMessage() {
         {
             "username":username,
             "name": displayName,
-            "time":msgTime+150,
+            "time":msgTime+ping,
             "text":message2
         }
     )
@@ -132,7 +133,7 @@ sendButton.addEventListener('click', sendMessage)
 function updateMessages() {
     const http = new XMLHttpRequest();
     http.open("GET", url + "/getmsgs", true)
-    http.timeout = 15000
+    http.timeout = 1000
     http.setRequestHeader('token', token)
     http.setRequestHeader('community', 0)
     http.setRequestHeader('channel', channel)
@@ -141,14 +142,14 @@ function updateMessages() {
     http.onload = (e) => {
 
         const afterrequest = new Date()
-        const ping = afterrequest - prerequest
+        ping = afterrequest - prerequest
         if (http.readyState == 4 && http.status == 200) {
-            window.console.log("AIOSJDOAIJDOIASJDOIAJDSO")
+            // window.console.log("AIOSJDOAIJDOIASJDOIAJDSO")
         const msgList = document.getElementById('chattingBox')
 
     var messagesTable = JSON.parse(http.responseText)
 
-    console.log(messagesTable)
+    // console.log(messagesTable)
 
     // window.console.log(time)
 
@@ -159,12 +160,12 @@ function updateMessages() {
 
         var decodedMsg = messagesTable[i];
         
-        console.log(decodedMsg)
-        console.log(http.status)
-        console.log(http.responseText)
+        // console.log(decodedMsg)
+        // console.log(http.status)
+        // console.log(http.responseText)
 
         // window.console.log(decodedMsg)
-        console.log(ping)
+        // console.log(ping)
         if (Number(decodedMsg['time'] + ping > time)) {
             var newChat = document.createElement("div")
             var message = DOMPurify.sanitize( marked.parse( decodedMsg["text"]) )//.replaceAll("\\","")
@@ -335,7 +336,7 @@ function startChannel() {
     setInterval(function() {
         if (token != "") {
             updateMessages()
-    }}, 1000)
+    }}, 2500)
 }
 
 settingsButton.addEventListener('click', function() {

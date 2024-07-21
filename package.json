@@ -19,7 +19,8 @@
     "make": "electron-forge make",
     "dist": "electron-builder -m && electron-builder -wl --x64",
     "dist-nomac": "electron-builder -wl --x64",
-    "pack": "electron-builder --dir -mwl"
+    "pack": "electron-builder --dir -mwl",
+    "build": "electron-builder"
   },
   "dependencies": {
     "dompurify": "^3.0.8",
@@ -30,6 +31,15 @@
     "appId": "logancookson.electronApps.ArcChatApp",
     "mac": {
       "category": "public.app-category.social-networking"
+    },
+    "directories": {
+      "output": "build"
+    },
+    "win": {
+      "target": ["nsis", "zip"]
+    },
+    "linux": {
+      "target": ["AppImage", "deb", "rpm"]
     }
   }
 }
