@@ -18,6 +18,7 @@
     "package-all": "electron-forge package --darwin --win --linux",
     "make": "electron-forge make",
     "dist": "electron-builder -m && electron-builder -wl --x64",
+    "dist-nomac": "electron-builder -wl --x64",
     "pack": "electron-builder --dir -mwl"
   },
   "dependencies": {

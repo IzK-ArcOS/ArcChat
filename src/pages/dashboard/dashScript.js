@@ -146,7 +146,9 @@ function updateMessages() {
             window.console.log("AIOSJDOAIJDOIASJDOIAJDSO")
         const msgList = document.getElementById('chattingBox')
 
-    var messagesTable = http.responseText.split('\\\\');
+    var messagesTable = JSON.parse(http.responseText)
+
+    console.log(messagesTable)
 
     // window.console.log(time)
 
@@ -155,10 +157,8 @@ function updateMessages() {
     for (i in messagesTable) {
         // window.console.log(messagesTable)
 
-        var decodedMsg;
-        try { decodedMsg = JSON.parse(messagesTable[i].replaceAll('<backslash>','\\')) }
-        catch(err) { //window.console.log("Error: "+err+"\n Message: "+messagesTable[i]); decodedMsg = "This message couldn't be displayed. Try again later."
-            }
+        var decodedMsg = messagesTable[i];
+        
         console.log(decodedMsg)
         console.log(http.status)
         console.log(http.responseText)
